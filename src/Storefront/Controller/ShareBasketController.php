@@ -55,4 +55,27 @@ class ShareBasketController extends StorefrontController
             ['froshShareBasketState' => $froshShareBasketState]
         );
     }
+
+    #[Route(path: 'account/loadBaskets/', name: 'frontend.account.frosh.share-baskets.load', methods: ['GET'], defaults: ['_loginRequired' => true])]
+    public function accountLoadBaskets(SalesChannelContext $context): Response
+    {
+        $froshSavedBaskets = $this->shareBasketService->loadBaskets($context);
+
+        return $this->renderStorefront(
+            '@Storefront/storefront/page/account/saved-baskets/saved-baskets.html.twig',
+            [
+                'froshSavedBaskets' => $froshSavedBaskets,
+            ]
+        );
+    }
+
+    #[Route(path: 'account/deleteBasket/{id}', name: 'frontend.account.frosh.share-basket.delete', methods: ['GET'])]
+    public function accountDeleteBasket(string $id, Request $request, SalesChannelContext $context): Response
+    {
+        $this->shareBasketService->removeBasket($id, $context);
+        $request->getSession()->remove('froshShareBasketHash');
+
+        $this->addFlash('success', 'Basket deleted');
+        return $this->redirectToRoute('frontend.account.frosh.share-baskets.load');
+    }
 }
