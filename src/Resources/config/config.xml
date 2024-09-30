@@ -48,5 +48,12 @@
             <label>Show Saved Carts in Customer Account</label>
             <label lang="de-DE">Gespeicherte Warenkörbe im Kundenkonto anzeigen</label>
         </input-field>
+
+        <input-field type="bool">
+            <name>showSaveCartButtonOnOffcanvas</name>
+            <defaultValue>false</defaultValue>
+            <label>Show Save Cart Button on Offcanvas Cart</label>
+            <label lang="de-DE">Schaltfläche „Warenkorb speichern“ im Offcanvas-Warenkorb anzeigen</label>
+        </input-field>
     </card>
 </config>
